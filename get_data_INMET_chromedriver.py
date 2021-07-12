@@ -7,7 +7,7 @@ import pandas as pd
 #       No final é criado o arquivo dados.csv 
 #       Versão 1.0
 
-def ImportaDadosInmet (url,DataInicioDoUsuario,DataFimDoUsuario):
+def getDadosInmet (url,DataInicioDoUsuario,DataFimDoUsuario):
    
     options = webdriver.ChromeOptions()                 #inicia
     driver = webdriver.Chrome(chrome_options=options)
@@ -43,4 +43,4 @@ DataInicio = input('Data de início da Importação DD/MM/AAAA \n') #Pede usuár
 DataFim = input('Data de início da Importação DD/MM/AAAA \n ')   #Pede ao usuário data de fim
   
 
-ImportaDadosInmet('https://tempo.inmet.gov.br/TabelaEstacoes/A801',DataInicio,DataFim) #Inicia funçao importação
+getDadosInmet('https://tempo.inmet.gov.br/TabelaEstacoes/A801',DataInicio,DataFim) #Inicia funçao importação
