@@ -18,19 +18,19 @@ class importDataInmet:
        
         options = webdriver.ChromeOptions()                 #start
         driver = webdriver.Chrome(chrome_options=options)
-        driver.set_window_size(1024, 1024)                   #Utiliza resolução padrão afim de evitar erros
-        #driver.set_window_position(0, -1000)                #Retira navegador da tela
+        driver.set_window_size(1024, 1024)                  #Utiliza resolução padrão afim de evitar erros
+        #driver.set_window_position(0, -1000)               #Retira navegador da tela
         time.sleep(1)
         driver.get(self.url)                                #informa a url
         time.sleep(5)                                       #Aguarda carregamento da pagina
         driver.find_element_by_id("menu").click()           #Encontra o elemento Menu Canto direito
         DataInicio = driver.find_element_by_id("datepicker_EstacoesTabela_Inicio")        #Encontra Box(do site) afim de inserir data inicial
-       # print(DataInicio)
+        #print(DataInicio)
         time.sleep(1)                                       #Aguarda carregamento da pagina
         DataInicio.clear()                                  #Retira dados da box
         DataInicio.send_keys(self.dataInicio)               #Insere dados no box
         time.sleep(1)                                       #Aguarda carregamento da pagina
-       # driver.quit()
+        #driver.quit()
         DataFim = driver.find_element_by_id("datepicker_EstacoesTabela_Fim")  #Encontra Box que irá a data final
         time.sleep(1)                                       #Tempo espera
         DataFim.clear()                                     #Retira dados da box
@@ -40,7 +40,7 @@ class importDataInmet:
         time.sleep(1)                                          
         driver.find_element_by_id("EstacoesTabela").click() #Clica no botao 'Gerar Tabela'(da pagina)
         time.sleep(5)                                       #Aguarda carregamento da pagina e dos dados
-        all_tables = pd.read_html(driver.page_source, attrs={'id': 'tabela'}) #Encontra tabela a ser importada
+        all_tables = pd.read_html(driver.page_source, attrs={'id': 'tabela'}) 	           #Encontra tabela a ser importada
         global df
         df = all_tables[0]                                  #Tabela da pagina para dataframe
         driver.quit()                                       #Fecha Chrome
