@@ -52,13 +52,13 @@ class importDataInmet:
     
     def printdata(self):
         
-         print(df)              #Imprime tabela
+         print(df)                                              #Imprime tabela
          
     def datatocsv(self):
         
-         df.to_csv('dados.csv') #Exporta Tabela
+         df.to_csv('dados.csv')                                 #Exporta Tabela
 
-dayIni = input('Data de início da Importação DD/MM/AAAA \n')   #Solicita ao usuário data de início
+dayIni = input('Data de início da Importação DD/MM/AAAA \n')    #Solicita ao usuário data de início
 dayEnd = input('Data de início da Importação DD/MM/AAAA \n ')   #Solicita ao usuário data de fim
   
 importDataInmet = importDataInmet('https://tempo.inmet.gov.br/TabelaEstacoes/A801',dayIni,dayEnd)
