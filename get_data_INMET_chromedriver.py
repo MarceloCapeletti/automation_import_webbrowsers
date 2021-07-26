@@ -14,6 +14,7 @@ class importDataInmet:
         self.url = url
         self.dayIni = dayIni
         self.dayEnd = dayEnd
+        self.df = pd.DataFrame()
         
     def import_(self):
        
@@ -42,21 +43,20 @@ class importDataInmet:
         driver.find_element_by_id("EstacoesTabela").click() #Clica no botao 'Gerar Tabela'(da pagina)
         time.sleep(5)                                       #Aguarda carregamento da pagina e dos dados
         all_tables = pd.read_html(driver.page_source, attrs={'id': 'tabela'}) #Encontra tabela a ser importada
-        global df
-        df = all_tables[0]                                  #Tabela da pagina para dataframe
+        self.df = all_tables[0]                             #Tabela da pagina para dataframe
         driver.quit()                                       #Encerra Chrome
                                     
     def getdata(self):
         
-        return df
+        return self.df
     
     def printdata(self):
         
-         print(df)                                              #Imprime tabela
+         print(self.df)                                         #Imprime tabela
          
     def datatocsv(self):
         
-         df.to_csv('dados.csv')                                 #Exporta Tabela
+         self.df.to_csv('dados.csv')                            #Exporta Tabela
 
 dayIni = input('Data de início da Importação DD/MM/AAAA \n')    #Solicita ao usuário data de início
 dayEnd = input('Data de início da Importação DD/MM/AAAA \n ')   #Solicita ao usuário data de fim
