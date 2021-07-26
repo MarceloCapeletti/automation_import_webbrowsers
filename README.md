@@ -4,14 +4,17 @@
 
 get_data_INMET.py
 
-Função getDadosInmet (url,DataInicioDoUsuario,DataFimDoUsuario):
+Classe importDataInmet (url,dataInicio,dataFinal):
 
-Recebe URL do INMET: Ex: https://tempo.inmet.gov.br/TabelaEstacoes/A801
+	recebe URL do INMET: Ex: https://tempo.inmet.gov.br/TabelaEstacoes/A801
+	recebe Data de Inicio da importação: XX/XX/XXXX
+	recebe Data de Fim da importação: XX/XX/XXXX
 
-Recebe Data de Inicio da importação: XX/XX/XXXX
+Funções:
 
-Recebe Data de Fim da importação: XX/XX/XXXX
-
-cria arquivo com os dados (dados.csv)
+	import_
+	getdata
+	printdata
+	datatocsv
 
 Utiliza biblioteca Selenium para importar dados climáticos do Instituto Nacional de Meteorologia - INMET
