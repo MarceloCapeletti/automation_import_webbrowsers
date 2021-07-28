@@ -1,6 +1,7 @@
 from selenium import webdriver
 import time as time
 import pandas as pd
+import datetime
 
 #   Bot para importar dados automaticamente do INMET (Instituto Nacional de Meteorologia) 
 #   Precisa URL da estação que se deseja importar do INMET
@@ -58,11 +59,27 @@ class importDataInmet:
         
          self.df.to_csv('dados.csv')                            #Exporta Tabela
 
-dayIni = input('Data de início da Importação DD/MM/AAAA \n')    #Solicita ao usuário data de início
-dayEnd = input('Data de início da Importação DD/MM/AAAA \n ')   #Solicita ao usuário data de fim
-  
-importDataInmet = importDataInmet('https://tempo.inmet.gov.br/TabelaEstacoes/A801',dayIni,dayEnd)
-importDataInmet.import_()
-df = importDataInmet.getdata()
-importDataInmet.printdata()
-importDataInmet.datatocsv()
+class Error(Exception):
+    pass
+
+class InputError(Error):
+    
+    def __init__(self,message):
+        
+        self.message = message
+        
+while True:
+    try:
+        dayIni = input('Data de início da Importação DD/MM/AAAA \n')    #Solicita ao usuário data de início
+        datetime.datetime.strptime(dayIni, '%d/%m/%Y')
+        dayEnd = input('Data de fim da Importação DD/MM/AAAA \n ')      #Solicita ao usuário data de fim
+        datetime.datetime.strptime(dayEnd, '%d/%m/%Y')
+        importDataInmet = importDataInmet('https://tempo.inmet.gov.br/TabelaEstacoes/A801',dayIni,dayEnd) #Para outra estação, modificar URL
+        importDataInmet.import_()
+        df = importDataInmet.getdata()
+        importDataInmet.printdata()
+        importDataInmet.datatocsv()
+        break
+    except ValueError as ex:
+        print(str(ex) + '\nValor invalido. Digite novamente:')
+
