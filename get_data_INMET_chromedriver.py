@@ -1,8 +1,13 @@
+
+
 from selenium import webdriver
 import time as time
 import pandas as pd
 import datetime
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class importDataInmet:
 
@@ -32,10 +37,8 @@ class importDataInmet:
 
         try:
 
-            options = webdriver.ChromeOptions()
 
-            # Utiliza resolução padrão afim de evitar erros
-            driver = webdriver.Chrome(chrome_options=options)
+            driver=webdriver.Chrome()
             driver.set_window_size(1024, 1024)
 
             # Retira navegador da tela
@@ -49,11 +52,13 @@ class importDataInmet:
             time.sleep(5)
 
             # Encontra o elemento Menu Canto direito
-            driver.find_element_by_id("menu").click()
+            driver.find_element(By.XPATH, "//*[@id='root']/div[1]/div[1]").click()
 
+            time.sleep(1)
+              
             # Encontra Box(do site) afim de inserir data inicial
-            DataInicio = driver.find_element_by_id(
-                "datepicker_EstacoesTabela_Inicio")
+            DataInicio = driver.find_element(By.XPATH, 
+                "//*[@id='root']/div[2]/div[1]/div[2]/div[4]/input")
 
             time.sleep(1)
 
@@ -66,8 +71,8 @@ class importDataInmet:
             time.sleep(1)
 
             # Encontra Box que irá a data final
-            DataFim = driver.find_element_by_id(
-                "datepicker_EstacoesTabela_Fim")
+            DataFim = driver.find_element(By.XPATH, 
+                "//*[@id='root']/div[2]/div[1]/div[2]/div[5]/input")
 
             time.sleep(1)
 
@@ -79,20 +84,21 @@ class importDataInmet:
 
             time.sleep(1)
 
-            driver.find_element_by_id("menu").click()
-
-            time.sleep(1)
 
             # Clica no botao 'Gerar Tabela'(da pagina)
-            driver.find_element_by_id("EstacoesTabela").click()
+            driver.find_element(By.XPATH, "//*[@id='root']/div[2]/div[1]/div[2]/button").click()
 
             # Aguarda carregamento dos dados
-            time.sleep(5)
+            time.sleep(10) # implementar WebDriverWait 
 
             # tabela a ser importada => dataframe
+
+            print(driver.page_source)
             all_tables = pd.read_html(
-                driver.page_source, attrs={'id': 'tabela'})
+                driver.page_source, attrs={'class': 'ui blue celled striped unstackable table'})
             self.df = all_tables[0]
+            
+
 
         except Exception as err:
 
