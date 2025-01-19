@@ -23,6 +23,3 @@ Data, Hora (UTC), Temp, Temp. Max. (C),	Temp. Min. (C),	Umi. Ins. (%), Umi. Max.
 	getdata
 	printdata
 	datatocsv
-
-### Automatizar importação dos dados hidrológicos Agência Nacional de Aguas (ANA)
-:point_right: :construction:  get_data_ANA.py :soon::clock10:
